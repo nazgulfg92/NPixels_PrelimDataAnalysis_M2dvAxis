@@ -1,0 +1,18 @@
+% This script takes a wav wav, plots all possible channels, and then you
+% can decide which one to keep as a microphone input (this obviously when
+% there's only one bat and obviously for preliminary analyses)..
+
+clc;
+clear all;
+
+%% plotting the wav
+pathw2av = 'D:\Work\Others\NeuropixelsPreliminary\DataPostProc\data\M2-DVAxis-210922-210922_g9_imec0\';
+wavname = 'M2-DVAxis-210922-210922-G1-T19.wav';
+
+[x, fswav] = audioread( [path2wav, wavname] );
+tv = [0 : size(x, 1) - 1] ./ fs;
+figure(1); clf;
+for m = 1 : size(x, 2)
+    subplot( m, 1 ); axis tight;
+    plot( tv, x( :, m ) )
+end
