@@ -1,0 +1,19 @@
+function plot_penetration( lfp_channels, ycoor, time_vec )
+   
+    if ( nargin < 2 ) time_vec = 1:size(lfp_channels, 2); end
+
+    Nchannels = size( lfp_channels, 1 );
+    % normalize across channels, only to make it easy
+%     lfp_channels = lfp_channels ./ max( lfp_channels(:) );
+    lfp_channels = normalize( lfp_channels, 2, 'norm', Inf );
+    
+    % add an offset so that they appear on top of each other...
+    lfp_channels = lfp_channels + repmat( [Nchannels : -1 : 1]', [ 1, size(lfp_channels, 2) ] );
+    plot( time_vec, lfp_channels' );
+    
+    % make ticks and labels according to depth
+    yticks( [1 : 25 : Nchannels] );
+    ylablesnow = ycoor(yticks); % 9600 um is the distance from first to last channels (top-tip)
+    ylabelsnow = string( num2cell( ylablesnow ) );
+    yticklabels( ylablesnow );
+end

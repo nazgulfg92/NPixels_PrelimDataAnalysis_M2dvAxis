@@ -6,18 +6,20 @@ clc;
 clear all;
 
 % prepare and load some basic shit
-addpath( 'D:\Work\Papers\9_BuildUpFAF_AC_Striatum_Data\___helper_functions' );
-datapath_matvars = 'D:\Work\Papers\9_BuildUpFAF_AC_Striatum_Data\latest_basicdata\';
-rootwavfiles = 'D:\Data\OrganizedDataKristin\vocalization\';
+% addpath( 'D:\Work\Papers\9_BuildUpFAF_AC_Striatum_Data\___helper_functions' );
+% define where the data is.... (this is my particular ordering, tho)
+rootwavfiles = 'D:\Work\Others\NeuropixelsPreliminary\DataPostProc\prelim_voc_M2axis_Npixels\data\M2-DVAxis-210922-210922_g9_imec0\';
+datapath_matvars = 'D:\Work\Others\NeuropixelsPreliminary\DataPostProc\prelim_voc_M2axis_Npixels\latest_basicdata\'
+mapping_file = 'DataArrangement_dummy.xlsx';
 rootLFPfiles = 'D:\Data\_____FAF_AC_A16x2_voc\processed_resampled_lfps\vocs\';
 
 load( [datapath_matvars, 'vocs_condensed_data.mat'] );
-T = readtable( [ datapath_matvars, 'DataArrangement_FAF_CN.xlsx' ] );
+T = readtable( [ datapath_matvars, 'DataArrangement_dummy.xlsx' ] );
    
 % take vocalization number, and show it. nice vocalizations I have marked
 % in the excel vocalization file... work with that
 % now, extract some important stuff
-vocnum = 23; % 552 seems like a perfect non-echo; -> used
+vocnum = 1; % 552 seems like a perfect non-echo; -> used
               % 131 seems like a very good echo;
               % 611 is perfect echo -> used
 
@@ -28,7 +30,7 @@ wavname = vocs_condensed_struct(vocnum).file;
 
 % show a large ( +- 5s?) segment where this voc is found
 % figure out which file it is
-fullwav_filename = [ rootwavfiles, num2str(voccol), '\', wavname ];
+fullwav_filename = [ rootwavfiles, wavname ];
 
 % load the wav file, and get the segment where the vocalization is
 [ wavnow, fs_voc ] = audioread( fullwav_filename );
